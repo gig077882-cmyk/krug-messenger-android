@@ -31,19 +31,19 @@ android {
         )
         buildConfigFieldStr(
             name = "CLIENT_URI",
-            value = BuildTimeConfig.URL_WEBSITE ?: "https://element.io"
+            value = BuildTimeConfig.URL_WEBSITE ?: "https://gb-mesenger.2bd.net"
         )
         buildConfigFieldStr(
             name = "LOGO_URI",
-            value = BuildTimeConfig.URL_LOGO ?: "https://element.io/mobile-icon.png"
+            value = BuildTimeConfig.URL_LOGO ?: "https://gb-mesenger.2bd.net"
         )
         buildConfigFieldStr(
             name = "TOS_URI",
-            value = BuildTimeConfig.URL_ACCEPTABLE_USE ?: "https://element.io/acceptable-use-policy-terms"
+            value = BuildTimeConfig.URL_ACCEPTABLE_USE ?: "https://gb-mesenger.2bd.net"
         )
         buildConfigFieldStr(
             name = "POLICY_URI",
-            value = BuildTimeConfig.URL_POLICY ?: "https://element.io/privacy"
+            value = BuildTimeConfig.URL_POLICY ?: "https://gb-mesenger.2bd.net"
         )
     }
 }
