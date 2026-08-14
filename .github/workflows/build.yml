@@ -1,0 +1,52 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Grant gradlew exec
+        run: chmod +x gradlew
+
+      - name: Create throwaway keystore
+        run: |
+          mkdir -p app/signature
+          keytool -genkeypair -keystore app/signature/gb-release.jks \
+            -alias ci -keyalg RSA -keysize 2048 -validity 90 \
+            -storepass ci123 -keypass ci123 -dname "CN=CI, O=Krug, C=RU"
+
+      - name: Build
+        env:
+          GB_RELEASE_KEYID: ci
+          GB_RELEASE_KEYPASSWORD: ci123
+          GB_RELEASE_STOREPASSWORD: ci123
+        run: ./gradlew :app:assembleFdroidRelease --no-daemon --console=plain
+
+      - name: Collect APK
+        run: |
+          ls -la app/build/outputs/apk/fdroid/release/ 2>/dev/null || ls -la app/build/outputs/apk/release/ 2>/dev/null || find app/build/outputs -name '*.apk'
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: krug-apk
+          path: |
+            app/build/outputs/apk/fdroid/release/*.apk
+            app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
