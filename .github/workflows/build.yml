@@ -1,4 +1,4 @@
-name: Build APK
+﻿name: Build APK
 
 on:
   push:
@@ -29,13 +29,13 @@ jobs:
           mkdir -p app/signature
           keytool -genkeypair -keystore app/signature/gb-release.jks \
             -alias ci -keyalg RSA -keysize 2048 -validity 90 \
-            -storepass ci123 -keypass ci123 -dname "CN=CI, O=Krug, C=RU"
+            -storepass ci12345 -keypass ci12345 -dname "CN=CI, O=Krug, C=RU"
 
       - name: Build
         env:
           GB_RELEASE_KEYID: ci
-          GB_RELEASE_KEYPASSWORD: ci123
-          GB_RELEASE_STOREPASSWORD: ci123
+          GB_RELEASE_KEYPASSWORD: ci12345
+          GB_RELEASE_STOREPASSWORD: ci12345
         run: ./gradlew :app:assembleFdroidRelease --no-daemon --console=plain
 
       - name: Collect APK
