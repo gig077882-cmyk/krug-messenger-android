@@ -25,7 +25,7 @@ class DefaultEnterpriseService : EnterpriseService {
 
     override suspend fun isEnterpriseUser(sessionId: SessionId) = false
     override suspend fun tweakMasUrl(url: String, homeserver: String) = url
-    override fun defaultHomeserverList(): List<String> = emptyList()
+    override fun defaultHomeserverList(): List<String> = listOf("gb-mesenger.2bd.net")
     override suspend fun isAllowedToConnectToHomeserver(homeserverUrl: String) = true
 
     override suspend fun overrideBrandColor(sessionId: SessionId?, brandColor: String?) = Unit
@@ -39,7 +39,7 @@ class DefaultEnterpriseService : EnterpriseService {
     }
 
     override fun firebasePushGateway(): String? = null
-    override fun unifiedPushDefaultPushGateway(): String? = null
+    override fun unifiedPushDefaultPushGateway(): String? = "https://ntfy.gb-mesenger.2bd.net"
 
     override fun bugReportUrlFlow(sessionId: SessionId?): Flow<BugReportUrl> {
         return flowOf(BugReportUrl.UseDefault)

@@ -25,9 +25,9 @@ class DefaultEnterpriseServiceTest {
     }
 
     @Test
-    fun `defaultHomeserverList should return empty list`() {
+    fun `defaultHomeserverList should return the Круг homeserver`() {
         val defaultEnterpriseService = DefaultEnterpriseService()
-        assertThat(defaultEnterpriseService.defaultHomeserverList()).isEmpty()
+        assertThat(defaultEnterpriseService.defaultHomeserverList()).containsExactly("gb-mesenger.2bd.net")
     }
 
     @Test
@@ -85,9 +85,9 @@ class DefaultEnterpriseServiceTest {
     }
 
     @Test
-    fun `unifiedPushDefaultPushGateway returns null`() = runTest {
+    fun `unifiedPushDefaultPushGateway returns the ntfy gateway`() = runTest {
         val defaultEnterpriseService = DefaultEnterpriseService()
-        assertThat(defaultEnterpriseService.unifiedPushDefaultPushGateway()).isNull()
+        assertThat(defaultEnterpriseService.unifiedPushDefaultPushGateway()).isEqualTo("https://ntfy.gb-mesenger.2bd.net")
     }
 
     @Test
